@@ -1,0 +1,473 @@
+/* =========================================================
+   NeuroPlay Arcade - Connect 4
+   Fixed Layout + Better Arrow Alignment
+
+   Purpose:
+   - Styles the Connect 4 game page layout
+   - Defines hero, stats, sidebars, board, controls, and modal UI
+   - Includes responsive breakpoints for tablet and mobile devices
+   ========================================================= */
+
+/* Main page wrapper: centers content and constrains overall width */
+.connect4-page {
+    padding: 2rem;
+    width: min(1400px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+/* Top hero section containing intro content and stats */
+.connect4-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+/* Left side of hero section: heading and description */
+.connect4-hero-text {
+    flex: 1 1 520px;
+    padding: 1.6rem;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--shadow-md);
+}
+
+/* Small badge label for category or game label */
+.connect4-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: rgba(110,168,254,0.18);
+    border: 1px solid rgba(110,168,254,0.24);
+    color: #dce8ff;
+}
+
+/* Main title styling in the hero section */
+.connect4-hero-text h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(2.3rem, 4vw, 3.3rem);
+    font-weight: 900;
+    line-height: 1.05;
+}
+
+/* Supporting description text below the title */
+.connect4-hero-text p {
+    margin-top: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.8;
+    max-width: 760px;
+}
+
+/* Right side of hero section: stat summary cards */
+.connect4-stats {
+    flex: 1 1 360px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+/* Individual stat card container */
+.stat-card {
+    min-height: 110px;
+    padding: 1rem;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Stat card label */
+.stat-card h3 {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.45rem;
+}
+
+/* Stat card value */
+.stat-card p {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: var(--text-1);
+}
+
+/* Main three-column content layout: left sidebar, board, right sidebar */
+.connect4-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 280px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Shared sidebar layout styling */
+.connect4-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Grid container for score summary items */
+.score-grid {
+    display: grid;
+    gap: 0.7rem;
+}
+
+/* Individual score row */
+.score-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    padding: 0.85rem 0.95rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Score label text */
+.score-title {
+    color: var(--text-2);
+    font-size: 0.9rem;
+}
+
+/* Score numeric emphasis */
+.score-item strong {
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+/* Scrollable history section */
+.history-list {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+/* Placeholder style when no history is available */
+.history-empty {
+    color: var(--text-3);
+    font-size: 0.92rem;
+}
+
+/* General analysis/info card in sidebar */
+.analysis-card {
+    padding: 0.9rem;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 0.7rem;
+}
+
+/* Small uppercase label used inside analysis cards */
+.analysis-label {
+    color: var(--text-3);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.3rem;
+}
+
+/* Highlighted main value in analysis cards */
+.analysis-card strong {
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+/* Two-column layout for pattern indicators or mini cards */
+.patterns-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+}
+
+/* Individual pattern status/info box */
+.pattern-card {
+    padding: 0.8rem;
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-2);
+    font-weight: 700;
+}
+
+/* Central game area containing controls and board */
+.connect4-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+}
+
+/* Top control strip above the game board */
+.board-top-controls {
+    width: 100%;
+    max-width: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Shared panel style for current turn and mini board info */
+.current-player-display,
+.board-mini-info {
+    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-2);
+}
+
+/* Current player display layout */
+.current-player-display {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 800;
+    color: var(--text-1);
+}
+
+/* Secondary board info group */
+.board-mini-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Base disc indicator used in labels and current player area */
+.disc {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Red disc appearance */
+.disc-red {
+    background: radial-gradient(circle at 30% 30%, #ff8c8c, #ff2e2e 65%, #bc1111 100%);
+    box-shadow: 0 0 10px rgba(255, 46, 46, 0.28);
+}
+
+/* =========================
+   ARROWS FIXED TO BOARD WIDTH
+   ========================= */
+
+/* Column selection buttons aligned to match board width */
+.column-buttons {
+    width: 100%;
+    max-width: 620px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 0.7rem;
+    padding: 0 10px;
+}
+
+/* Individual column button above each board column */
+.column-btn {
+    height: 52px;
+    border: none;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: white;
+    font-size: 1.9rem;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.18s ease;
+    display: grid;
+    place-items: center;
+}
+
+/* Hover feedback for interactive column buttons */
+.column-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(110,168,254,0.14);
+    box-shadow: 0 10px 20px rgba(77,141,255,0.18);
+}
+
+/* Disabled state when a column cannot be played */
+.column-btn:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Outer frame around the game board */
+.board-shell {
+    width: 100%;
+    max-width: 620px;
+    padding: 14px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(54, 82, 146, 0.75), rgba(34, 50, 95, 0.95));
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 7-column Connect 4 board grid */
+.connect4-board {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    width: 100%;
+}
+
+/* Base empty board cell */
+.cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #10204d, #081434 68%, #06102a 100%);
+    box-shadow:
+        inset 0 10px 16px rgba(255,255,255,0.04),
+        inset 0 -10px 18px rgba(0,0,0,0.24);
+    transition: transform 0.18s ease, box-shadow 0.2s ease;
+}
+
+/* Red player token cell */
+.cell.red {
+    background: radial-gradient(circle at 30% 30%, #ffaaaa, #ff3131 62%, #b41212 100%);
+    box-shadow:
+        inset 0 8px 14px rgba(255,255,255,0.18),
+        0 8px 18px rgba(255,49,49,0.24);
+}
+
+/* Yellow player token cell */
+.cell.yellow {
+    background: radial-gradient(circle at 30% 30%, #fff0a8, #ffd740 62%, #c49a00 100%);
+    box-shadow:
+        inset 0 8px 14px rgba(255,255,255,0.2),
+        0 8px 18px rgba(255,215,64,0.24);
+}
+
+/* Area for status messages below or near the board */
+.board-message {
+    width: 100%;
+    max-width: 620px;
+}
+
+/* Fullscreen winner modal overlay */
+.winner-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 1500;
+}
+
+/* Utility class for toggling visibility */
+.hidden {
+    display: none;
+}
+
+/* Winner modal content box */
+.winner-modal-content {
+    width: min(520px, 100%);
+    padding: 2rem;
+    border-radius: 22px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(15,26,51,0.98), rgba(10,18,37,0.98));
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Winner modal heading */
+.winner-modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 0.7rem;
+}
+
+/* Winner modal supporting text */
+.winner-modal-content p {
+    color: var(--text-2);
+    line-height: 1.7;
+}
+
+/* Action buttons container inside winner modal */
+.winner-actions {
+    margin-top: 1.2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Tablet / smaller desktop layout:
+   stacks sidebars below main board area */
+@media (max-width: 1180px) {
+    .connect4-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .connect4-sidebar {
+        order: 2;
+    }
+
+    .connect4-center {
+        order: 1;
+    }
+}
+
+/* Mobile layout adjustments for tighter spacing and controls */
+@media (max-width: 760px) {
+    .connect4-page {
+        padding: 1rem;
+        width: min(100%, calc(100% - 1rem));
+    }
+
+    .board-top-controls {
+        justify-content: center;
+    }
+
+    .column-buttons {
+        gap: 6px;
+        padding: 0 6px;
+    }
+
+    .column-btn {
+        height: 44px;
+        font-size: 1.45rem;
+        border-radius: 12px;
+    }
+
+    .board-shell {
+        padding: 10px;
+        border-radius: 20px;
+    }
+
+    .connect4-board {
+        gap: 6px;
+    }
+}
+
+/* Extra-small mobile screens:
+   reduce button and card sizes further */
+@media (max-width: 480px) {
+    .column-btn {
+        height: 38px;
+        font-size: 1.15rem;
+    }
+
+    .stat-card {
+        min-height: 90px;
+    }
+}

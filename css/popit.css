@@ -1,0 +1,514 @@
+/* =========================================================
+   NeuroPlay Arcade - Pop It (Correct Rules Version)
+
+   Purpose:
+   - Styles the Pop It strategy game interface
+   - Handles hero, stats, board layout, interactions, and modal UI
+   - Includes visual states for gameplay logic (valid moves, popped, blocked)
+   - Fully responsive across desktop, tablet, and mobile
+
+   Notes:
+   - This file contains state-driven UI styles (important for game logic)
+   - Many classes reflect gameplay states (selected, valid, blocked, etc.)
+   ========================================================= */
+
+/* =========================
+   PAGE LAYOUT
+   ========================= */
+
+/* Main page container with centered layout and max width constraint */
+.popit-page {
+    padding: 2rem;
+    width: min(1400px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+/* =========================
+   HERO SECTION
+   ========================= */
+
+/* Top section containing title, description, and stats */
+.popit-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+/* Left side: main introduction content */
+.popit-hero-text {
+    flex: 1 1 560px;
+    padding: 1.7rem;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: var(--shadow-md);
+}
+
+/* Category badge / label */
+.popit-badge {
+    display: inline-block;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(34,211,238,0.18);
+    border: 1px solid rgba(34,211,238,0.24);
+    color: #d9fbff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Main heading */
+.popit-hero-text h1 {
+    margin-top: 0.8rem;
+    font-size: clamp(2.3rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    font-weight: 900;
+}
+
+/* Supporting description */
+.popit-hero-text p {
+    margin-top: 1rem;
+    color: var(--text-2);
+    line-height: 1.8;
+    max-width: 760px;
+}
+
+/* Right side: stats overview cards */
+.popit-stats-overview {
+    flex: 1 1 360px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+/* Individual stat card */
+.popit-stat-card {
+    min-height: 110px;
+    padding: 1rem;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Stat label */
+.popit-stat-card h3 {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.45rem;
+}
+
+/* Stat value */
+.popit-stat-card p {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: var(--text-1);
+}
+
+/* =========================
+   MAIN LAYOUT
+   ========================= */
+
+/* 3-column layout: sidebar - board - sidebar */
+.popit-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 280px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Sidebar containers (left & right panels) */
+.popit-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Central game area */
+.popit-center {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+/* =========================
+   TOPBAR (LIVE STATS)
+   ========================= */
+
+/* Grid for real-time game stats */
+.popit-topbar {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+/* Individual live stat card */
+.live-stat {
+    padding: 1rem;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+/* Stat label */
+.live-stat span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+}
+
+/* Stat value */
+.live-stat strong {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--text-1);
+}
+
+/* =========================
+   GAME BOARD
+   ========================= */
+
+/* Outer board container */
+.popit-board-shell {
+    padding: 1.2rem;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: var(--shadow-md);
+}
+
+/* Board structure (rows of bubbles) */
+.popit-board {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Row container */
+.popit-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+}
+
+/* Row label (e.g., row number/name) */
+.row-label {
+    width: 70px;
+    flex-shrink: 0;
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text-2);
+}
+
+/* Bubble container */
+.row-bubbles {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+/* =========================
+   BUBBLES (GAME ELEMENTS)
+   ========================= */
+
+/* Base bubble style */
+.pop-bubble {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: 0.16s ease;
+    box-shadow:
+        inset 0 -8px 14px rgba(0,0,0,0.18),
+        inset 0 8px 14px rgba(255,255,255,0.16),
+        0 8px 18px rgba(0,0,0,0.18);
+}
+
+/* Hover interaction */
+.pop-bubble:hover {
+    transform: translateY(-2px) scale(1.03);
+}
+
+/* Selected row highlight (active row for current turn) */
+.pop-bubble.selected-row {
+    outline: 3px solid rgba(255,255,255,0.22);
+    box-shadow:
+        0 0 0 4px rgba(110,168,254,0.12),
+        inset 0 -8px 14px rgba(0,0,0,0.18),
+        inset 0 8px 14px rgba(255,255,255,0.16),
+        0 8px 18px rgba(0,0,0,0.18);
+}
+
+/* Valid move indicator (animated pulse effect) */
+.pop-bubble.valid-turn {
+    animation: pulseAllowed 1s infinite ease-in-out;
+}
+
+/* Blocked move (cannot be interacted with) */
+.pop-bubble.blocked {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Popped bubble state (already used) */
+.pop-bubble.popped {
+    opacity: 0.18;
+    cursor: default;
+    transform: scale(0.84);
+    box-shadow:
+        inset 0 8px 14px rgba(0,0,0,0.28),
+        inset 0 -6px 12px rgba(255,255,255,0.04);
+}
+
+/* Inner dashed circle to indicate popped state */
+.pop-bubble.popped::after {
+    content: "";
+    position: absolute;
+    inset: 22%;
+    border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,0.2);
+}
+
+/* =========================
+   BUBBLE COLOR VARIANTS
+   ========================= */
+
+/* Each color represents a different row or category */
+.pop-bubble.color-1 { background: radial-gradient(circle at 30% 30%, #9be7ff, #22d3ee 55%, #0ea5b7 100%); }
+.pop-bubble.color-2 { background: radial-gradient(circle at 30% 30%, #b7c9ff, #6ea8fe 55%, #3d73d6 100%); }
+.pop-bubble.color-3 { background: radial-gradient(circle at 30% 30%, #d3bcff, #a78bfa 55%, #7c53f3 100%); }
+.pop-bubble.color-4 { background: radial-gradient(circle at 30% 30%, #ffd1e1, #ff72b1 55%, #db4287 100%); }
+.pop-bubble.color-5 { background: radial-gradient(circle at 30% 30%, #ffe0a8, #f7b23b 55%, #cf8617 100%); }
+.pop-bubble.color-6 { background: radial-gradient(circle at 30% 30%, #caffcb, #55d66b 55%, #2ea84a 100%); }
+
+/* =========================
+   SIDEBAR COMPONENTS
+   ========================= */
+
+/* Score grid */
+.score-grid {
+    display: grid;
+    gap: 0.7rem;
+}
+
+/* Score row */
+.score-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    padding: 0.85rem 0.95rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Score label */
+.score-title {
+    color: var(--text-2);
+    font-size: 0.9rem;
+}
+
+/* Score value */
+.score-item strong {
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+/* Analysis cards (AI insights / game info) */
+.analysis-card {
+    padding: 0.9rem;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 0.7rem;
+}
+
+/* Analysis label */
+.analysis-label {
+    color: var(--text-3);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.3rem;
+}
+
+/* Analysis value */
+.analysis-card strong {
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+/* =========================
+   HISTORY LIST
+   ========================= */
+
+/* Scrollable move history container */
+.history-list {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+/* Empty state text */
+.history-empty {
+    color: var(--text-3);
+    font-size: 0.92rem;
+}
+
+/* Individual history entry */
+.history-item {
+    padding: 0.5rem 0.2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: var(--text-2);
+    font-size: 0.9rem;
+}
+
+/* =========================
+   WINNER MODAL
+   ========================= */
+
+/* Fullscreen overlay */
+.winner-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 1500;
+}
+
+/* Utility class for toggling visibility */
+.hidden {
+    display: none;
+}
+
+/* Modal content box */
+.winner-modal-content {
+    width: min(520px, 100%);
+    background: linear-gradient(180deg, rgba(15,26,51,0.98), rgba(11,19,39,0.98));
+    padding: 2rem;
+    border-radius: 22px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Modal heading */
+.winner-modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Modal text */
+.winner-modal-content p {
+    color: var(--text-2);
+    line-height: 1.7;
+}
+
+/* Modal action buttons */
+.winner-actions {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+
+/* Pulse animation for valid moves */
+@keyframes pulseAllowed {
+    0%, 100% {
+        box-shadow:
+            0 0 0 0 rgba(110,168,254,0.18),
+            inset 0 -8px 14px rgba(0,0,0,0.18),
+            inset 0 8px 14px rgba(255,255,255,0.16),
+            0 8px 18px rgba(0,0,0,0.18);
+    }
+    50% {
+        box-shadow:
+            0 0 0 7px rgba(110,168,254,0),
+            inset 0 -8px 14px rgba(0,0,0,0.18),
+            inset 0 8px 14px rgba(255,255,255,0.16),
+            0 8px 18px rgba(0,0,0,0.18);
+    }
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+
+/* Tablet layout */
+@media (max-width: 1180px) {
+    .popit-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .popit-topbar {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+    }
+}
+
+/* Mobile layout */
+@media (max-width: 720px) {
+    .popit-page {
+        padding: 1rem;
+        width: min(100%, calc(100% - 1rem));
+    }
+
+    .popit-topbar,
+    .popit-stats-overview {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .row-label {
+        width: 58px;
+        font-size: 0.84rem;
+    }
+
+    .pop-bubble {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Small mobile layout */
+@media (max-width: 480px) {
+    .popit-topbar,
+    .popit-stats-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .row-bubbles {
+        gap: 0.45rem;
+    }
+
+    .pop-bubble {
+        width: 42px;
+        height: 42px;
+    }
+}

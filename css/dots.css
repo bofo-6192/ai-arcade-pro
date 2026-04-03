@@ -1,0 +1,180 @@
+/* =========================================================
+   NeuroPlay Arcade - Dots & Boxes
+
+   Purpose:
+   - Styles the Dots & Boxes game page
+   - Defines layout, hero section, sidebar, board, and stats
+   - Includes responsive adjustments for smaller screens
+   ========================================================= */
+
+/* =========================
+   PAGE
+   ========================= */
+
+/* Main page container with consistent padding */
+.dots-page {
+    padding: 2rem;
+}
+
+/* Two-column layout: sidebar (left) and game area (right) */
+.dots-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* =========================
+   HERO
+   ========================= */
+
+/* Top header section for title and description */
+.dots-hero {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Main game title styling */
+.dots-hero h1 {
+    font-size: 2.5rem;
+}
+
+/* Subtitle/description under the title */
+.dots-hero p {
+    color: var(--text-2);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+/* Sidebar container for controls, info, or stats */
+.dots-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* =========================
+   CENTER
+   ========================= */
+
+/* Central game area (board + stats) aligned vertically */
+.dots-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+   STATS
+   ========================= */
+
+/* Horizontal container for player stats or score */
+.dots-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Individual stat box styling */
+.stat-box {
+    background: rgba(255,255,255,0.05);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Label inside stat box (e.g., "Player 1") */
+.stat-box span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-3);
+}
+
+/* Value inside stat box (e.g., score number) */
+.stat-box strong {
+    font-size: 1.2rem;
+}
+
+/* =========================
+   BOARD
+   ========================= */
+
+/* Grid container for dots, lines, and boxes */
+.dots-board {
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+/* Dot nodes (intersection points) */
+.dot {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* Line segments between dots (clickable edges) */
+.line {
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+}
+
+/* Horizontal line segment */
+.line.horizontal {
+    height: 6px;
+    width: 40px;
+}
+
+/* Vertical line segment */
+.line.vertical {
+    width: 6px;
+    height: 40px;
+}
+
+/* Activated line (claimed by a player) */
+.line.active {
+    background: var(--primary);
+}
+
+/* Box cell formed when all four sides are completed */
+.box {
+    width: 40px;
+    height: 40px;
+}
+
+/* Box claimed by Player 1 */
+.box.player1 {
+    background: rgba(110,168,254,0.3);
+}
+
+/* Box claimed by Player 2 */
+.box.player2 {
+    background: rgba(167,139,250,0.3);
+}
+
+/* =========================
+   MESSAGE
+   ========================= */
+
+/* Status or turn message displayed below the board */
+.board-message {
+    margin-top: 1rem;
+    color: var(--text-2);
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+/* Mobile layout: stack sidebar and game vertically */
+@media (max-width: 800px) {
+    .dots-layout {
+        grid-template-columns: 1fr;
+    }
+}

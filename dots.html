@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =========================
+         DOCUMENT METADATA
+         ========================= -->
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive layout for mobile and tablet -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title (browser tab) -->
+    <title>NeuroPlay Arcade | Dots & Boxes</title>
+
+    <!-- Global shared styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Dots & Boxes specific styles -->
+    <link rel="stylesheet" href="css/dots.css">
+</head>
+<body>
+
+<!-- Decorative background glow layer -->
+<div class="background-glow"></div>
+
+<!-- =========================
+     NAVBAR
+     ========================= -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <!-- Brand / logo linking to homepage -->
+        <a href="index.html" class="brand">
+            <div class="brand-logo">🧠</div>
+            <div class="brand-text">
+                <span class="brand-title">NeuroPlay Arcade</span>
+                <span class="brand-subtitle">AI + Game Skills</span>
+            </div>
+        </a>
+
+        <!-- Navigation links + global music toggle -->
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="connect4.html">4 in a Row</a>
+            <a href="popit.html">Pop It</a>
+            <a href="dots.html">Dots & Boxes</a>
+            <button class="music-btn" data-music-toggle>Music: On</button>
+        </div>
+    </div>
+</nav>
+
+<!-- =========================
+     MAIN PAGE CONTENT
+     ========================= -->
+<main class="dots-page">
+
+    <!-- HERO SECTION: title + short description -->
+    <section class="dots-hero">
+        <h1>Dots & Boxes</h1>
+        <p>Play against AI or your friend. Complete boxes to score.</p>
+    </section>
+
+    <!-- MAIN LAYOUT: sidebar + game area -->
+    <section class="dots-layout">
+
+        <!-- =========================
+             LEFT PANEL (SETTINGS)
+             ========================= -->
+        <aside class="dots-sidebar">
+
+            <div class="panel-box">
+                <h2>Game Settings</h2>
+
+                <!-- Game mode selection -->
+                <div class="control-group">
+                    <label>Mode</label>
+                    <select id="modeDots">
+                        <option value="pvp">Player vs Player</option>
+                        <option value="ai" selected>Player vs AI</option>
+                    </select>
+                </div>
+
+                <!-- Grid size selection -->
+                <div class="control-group">
+                    <label>Grid Size</label>
+                    <select id="gridSize">
+                        <option value="4">4 × 4</option>
+                        <option value="5" selected>5 × 5</option>
+                        <option value="6">6 × 6</option>
+                    </select>
+                </div>
+
+                <!-- Game control buttons -->
+                <button id="startDots" class="control-btn primary-btn">Start Game</button>
+                <button id="resetDots" class="control-btn secondary-btn">Reset</button>
+            </div>
+
+        </aside>
+
+        <!-- =========================
+             CENTER (GAME AREA)
+             ========================= -->
+        <section class="dots-center">
+
+            <!-- Live stats: scores and turn indicator -->
+            <div class="dots-stats">
+                <div class="stat-box">
+                    <span>Player</span>
+                    <strong id="p1Score">0</strong>
+                </div>
+                <div class="stat-box">
+                    <span id="p2Label">AI</span>
+                    <strong id="p2Score">0</strong>
+                </div>
+                <div class="stat-box">
+                    <span>Turn</span>
+                    <strong id="turnLabelDots">Player</strong>
+                </div>
+            </div>
+
+            <!-- Game board container (rendered dynamically via JS) -->
+            <div id="dotsBoard" class="dots-board"></div>
+
+            <!-- Status / feedback message -->
+            <div id="dotsMessage" class="board-message">
+                Press Start to begin
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+<footer class="footer">
+    <p>© 2026 NeuroPlay Arcade</p>
+</footer>
+
+<!-- Shared global JS logic -->
+<script src="js/main.js"></script>
+
+<!-- Dots & Boxes game logic -->
+<script src="js/dots.js"></script>
+
+</body>
+</html>

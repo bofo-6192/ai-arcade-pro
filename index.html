@@ -1,0 +1,129 @@
+<!-- =========================================================
+     NeuroPlay Arcade - Homepage
+     Purpose:
+     - Entry point for the arcade
+     - Introduces the project and available games
+     - Provides navigation and quick access to all games
+========================================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =========================
+         DOCUMENT METADATA
+         ========================= -->
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive viewport for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title (browser tab) -->
+    <title>NeuroPlay Arcade</title>
+
+    <!-- =========================
+         STYLESHEETS
+         ========================= -->
+
+    <!-- Global shared styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Homepage-specific styles -->
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+
+    <!-- Decorative animated background layer -->
+    <div class="background-glow"></div>
+
+    <!-- =========================
+         NAVBAR
+         ========================= -->
+
+    <!-- Main navigation menu -->
+    <nav class="navbar">
+        <!-- Logo / brand identity -->
+        <div class="logo">🧠 NeuroPlay</div>
+
+        <!-- Navigation links -->
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="connect4.html">4 in a Row</a></li>
+            <li><a href="popit.html">Pop It</a></li>
+            <li><a href="dots.html">Dots & Boxes</a></li>
+        </ul>
+    </nav>
+
+    <!-- =========================
+         HERO SECTION
+         ========================= -->
+
+    <!-- Intro section presenting the arcade -->
+    <section class="hero">
+        <h1>Welcome to NeuroPlay Arcade</h1>
+
+        <!-- Short description of the project -->
+        <p>
+            A collection of interactive games powered by logic, strategy,
+            and AI-inspired systems. Built fully from scratch with no external dependencies.
+        </p>
+
+        <!-- Call-to-action buttons for each game -->
+        <div class="buttons">
+            <a href="connect4.html" class="btn primary">Play 4 in a Row</a>
+            <a href="popit.html" class="btn secondary">Play Pop It</a>
+            <a href="dots.html" class="btn outline">Play Dots & Boxes</a>
+        </div>
+    </section>
+
+    <!-- =========================
+         FEATURES SECTION
+         ========================= -->
+
+    <!-- Highlights of the project capabilities -->
+    <section class="features">
+
+        <!-- AI capability highlight -->
+        <div class="card">
+            <h3> Smart AI</h3>
+            <p>Connect4 uses a minimax-based AI for strategic gameplay.</p>
+        </div>
+
+        <!-- Variety of games -->
+        <div class="card">
+            <h3> Multiple Games</h3>
+            <p>Enjoy 3 different game styles with unique mechanics.</p>
+        </div>
+
+        <!-- Offline functionality -->
+        <div class="card">
+            <h3> Fully Offline</h3>
+            <p>No APIs, no downloads. Everything runs locally.</p>
+        </div>
+
+        <!-- Custom audio system -->
+        <div class="card">
+            <h3> Custom Sounds</h3>
+            <p>All sounds are generated using Python — no assets needed.</p>
+        </div>
+    </section>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <!-- Footer with project attribution -->
+    <footer class="footer">
+        <p>© 2026 NeuroPlay Arcade | Built with HTML, CSS, JS & Python</p>
+    </footer>
+
+    <!-- =========================
+         SCRIPTS
+         ========================= -->
+
+    <!-- Global JavaScript logic -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

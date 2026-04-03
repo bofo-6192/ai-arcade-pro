@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =========================
+         DOCUMENT METADATA
+         ========================= -->
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive viewport for mobile and tablet devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title shown in the browser tab -->
+    <title>NeuroPlay Arcade | 4 in a Row</title>
+
+    <!-- Global shared styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Connect 4 page-specific styles -->
+    <link rel="stylesheet" href="css/connect4.css">
+</head>
+<body>
+    <!-- Decorative global background glow layer -->
+    <div class="background-glow"></div>
+
+    <!-- =========================
+         SITE NAVIGATION
+         ========================= -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <!-- Brand / logo area linking back to homepage -->
+            <a href="index.html" class="brand">
+                <div class="brand-logo">🧠</div>
+                <div class="brand-text">
+                    <span class="brand-title">NeuroPlay Arcade</span>
+                    <span class="brand-subtitle">AI + Game Skills</span>
+                </div>
+            </a>
+
+            <!-- Primary navigation links + music toggle -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="connect4.html">4 in a Row</a>
+                <a href="popit.html">Pop It</a>
+                <a href="dots.html">Dots &amp; Boxes</a>
+                <button class="music-btn" data-music-toggle type="button">Music: On</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =========================
+         MAIN PAGE CONTENT
+         ========================= -->
+    <main class="connect4-page">
+        <!-- Hero section: page intro + quick game status summary -->
+        <section class="connect4-hero">
+            <div class="connect4-hero-text">
+                <span class="connect4-badge">AI Strategy Game</span>
+                <h1>4 in a Row</h1>
+                <p>
+                    Challenge a strong AI in a polished Connect Four experience.
+                    Drop your pieces, block enemy moves, create traps, and try to
+                    outsmart the computer before it outsmarts you.
+                </p>
+            </div>
+
+            <!-- Top summary stats displayed in card format -->
+            <div class="connect4-stats">
+                <div class="stat-card">
+                    <h3>Mode</h3>
+                    <p id="gameModeLabel">Player vs AI</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Difficulty</h3>
+                    <p id="difficultyLabel">Medium</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Turn</h3>
+                    <p id="turnLabel">Player 1</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Status</h3>
+                    <p id="statusLabel">Ready to play</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             MAIN GAME LAYOUT
+             ========================= -->
+        <section class="connect4-layout">
+            <!-- Left sidebar: controls, scoreboard, and game help -->
+            <aside class="connect4-sidebar left-panel">
+                <div class="panel-box">
+                    <h2>Game Controls</h2>
+
+                    <!-- Game mode selector -->
+                    <div class="control-group">
+                        <label for="modeSelect">Game Mode</label>
+                        <select id="modeSelect">
+                            <option value="ai" selected>Player vs AI</option>
+                            <option value="pvp">Player vs Player</option>
+                        </select>
+                    </div>
+
+                    <!-- AI difficulty selector -->
+                    <div class="control-group">
+                        <label for="difficultySelect">AI Difficulty</label>
+                        <select id="difficultySelect">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+
+                    <!-- Main action buttons -->
+                    <div class="control-buttons">
+                        <button id="newGameBtn" class="control-btn primary-btn">New Game</button>
+                        <button id="resetScoreBtn" class="control-btn secondary-btn">Reset Scores</button>
+                        <button id="undoBtn" class="control-btn ghost-btn">Undo Move</button>
+                    </div>
+                </div>
+
+                <!-- Scoreboard panel -->
+                <div class="panel-box">
+                    <h2>Scoreboard</h2>
+                    <div class="score-grid">
+                        <div class="score-item">
+                            <span class="score-title">Player 1</span>
+                            <strong id="player1Score">0</strong>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-title" id="player2Title">AI</span>
+                            <strong id="player2Score">0</strong>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-title">Draws</span>
+                            <strong id="drawScore">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick instructions / gameplay help -->
+                <div class="panel-box">
+                    <h2>Game Help</h2>
+                    <ul class="info-list">
+                        <li>Click a top arrow to drop a piece into that column.</li>
+                        <li>Connect 4 horizontally, vertically, or diagonally to win.</li>
+                        <li>Harder AI levels search deeper and punish mistakes more.</li>
+                        <li>Undo removes the latest move, or the last pair in AI mode.</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Center area: board controls, game board, and live message -->
+            <section class="connect4-center">
+                <!-- Top area showing current turn and small live stats -->
+                <div class="board-top-controls">
+                    <div class="current-player-display">
+                        <span class="disc disc-red"></span>
+                        <span id="currentPlayerText">Player 1 Turn</span>
+                    </div>
+
+                    <div class="board-mini-info">
+                        <span>Moves: <strong id="moveCounter">0</strong></span>
+                        <span>AI Thinking: <strong id="aiThinkingLabel">No</strong></span>
+                    </div>
+                </div>
+
+                <!-- Column action buttons used to drop pieces -->
+                <div class="column-buttons" id="columnButtons">
+                    <button class="column-btn" data-col="0" aria-label="Drop in column 1">▼</button>
+                    <button class="column-btn" data-col="1" aria-label="Drop in column 2">▼</button>
+                    <button class="column-btn" data-col="2" aria-label="Drop in column 3">▼</button>
+                    <button class="column-btn" data-col="3" aria-label="Drop in column 4">▼</button>
+                    <button class="column-btn" data-col="4" aria-label="Drop in column 5">▼</button>
+                    <button class="column-btn" data-col="5" aria-label="Drop in column 6">▼</button>
+                    <button class="column-btn" data-col="6" aria-label="Drop in column 7">▼</button>
+                </div>
+
+                <!-- Main Connect 4 board container -->
+                <div class="board-shell">
+                    <div class="connect4-board" id="connect4Board">
+                        <!-- JS will generate the cells -->
+                    </div>
+                </div>
+
+                <!-- Live status / feedback message area -->
+                <div class="board-message" id="boardMessage">
+                    Welcome to 4 in a Row. Start the game by dropping a piece.
+                </div>
+            </section>
+
+            <!-- Right sidebar: AI analysis, match history, and win patterns -->
+            <aside class="connect4-sidebar right-panel">
+                <!-- AI insights panel -->
+                <div class="panel-box">
+                    <h2>AI Analysis</h2>
+                    <div class="analysis-card">
+                        <p class="analysis-label">Best Move Prediction</p>
+                        <strong id="bestMovePrediction">Waiting...</strong>
+                    </div>
+                    <div class="analysis-card">
+                        <p class="analysis-label">Board Evaluation</p>
+                        <strong id="boardEvaluation">0</strong>
+                    </div>
+                    <div class="analysis-card">
+                        <p class="analysis-label">Threat Level</p>
+                        <strong id="threatLevel">Low</strong>
+                    </div>
+                </div>
+
+                <!-- Match history panel -->
+                <div class="panel-box">
+                    <h2>Match History</h2>
+                    <div class="history-list" id="historyList">
+                        <div class="history-empty">No moves yet.</div>
+                    </div>
+                </div>
+
+                <!-- Reference panel for winning directions -->
+                <div class="panel-box">
+                    <h2>Winning Patterns</h2>
+                    <div class="patterns-grid">
+                        <div class="pattern-card">Horizontal</div>
+                        <div class="pattern-card">Vertical</div>
+                        <div class="pattern-card">Diagonal ↘</div>
+                        <div class="pattern-card">Diagonal ↗</div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <!-- =========================
+         WINNER / RESULT MODAL
+         ========================= -->
+    <div class="winner-modal hidden" id="winnerModal">
+        <div class="winner-modal-content">
+            <h2 id="winnerTitle">Game Over</h2>
+            <p id="winnerText">Someone won the game.</p>
+            <div class="winner-actions">
+                <button id="playAgainBtn" class="control-btn primary-btn">Play Again</button>
+                <button id="closeWinnerBtn" class="control-btn ghost-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="footer">
+        <p>© 2026 NeuroPlay Arcade | 4 in a Row AI Experience</p>
+    </footer>
+
+    <!-- Shared site logic -->
+    <script src="js/main.js"></script>
+
+    <!-- Connect 4 game-specific logic -->
+    <script src="js/connect4.js"></script>
+</body>
+</html>

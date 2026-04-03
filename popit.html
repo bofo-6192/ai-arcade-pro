@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =========================
+         DOCUMENT METADATA
+         ========================= -->
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive viewport for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title -->
+    <title>NeuroPlay Arcade | Pop It</title>
+
+    <!-- Global shared styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Pop It specific styles -->
+    <link rel="stylesheet" href="css/popit.css">
+</head>
+<body>
+
+    <!-- Decorative animated background -->
+    <div class="background-glow"></div>
+
+    <!-- =========================
+         NAVBAR
+         ========================= -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <!-- Brand / logo -->
+            <a href="index.html" class="brand">
+                <div class="brand-logo">🧠</div>
+                <div class="brand-text">
+                    <span class="brand-title">NeuroPlay Arcade</span>
+                    <span class="brand-subtitle">AI + Game Skills</span>
+                </div>
+            </a>
+
+            <!-- Navigation links + music toggle -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="connect4.html">4 in a Row</a>
+                <a href="popit.html">Pop It</a>
+                <a href="dots.html">Dots &amp; Boxes</a>
+                <button class="music-btn" data-music-toggle type="button">Music: On</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =========================
+         MAIN PAGE CONTENT
+         ========================= -->
+    <main class="popit-page">
+
+        <!-- HERO SECTION: description + quick stats -->
+        <section class="popit-hero">
+            <div class="popit-hero-text">
+                <span class="popit-badge">Misère Strategy Game</span>
+                <h1>Pop It</h1>
+
+                <!-- Game explanation -->
+                <p>
+                    Two players take turns. On your turn, choose exactly one row and pop
+                    one or more bubbles from that row only. You cannot jump across a gap.
+                    The player forced to pop the final bubble loses the round.
+                </p>
+            </div>
+
+            <!-- Overview stats panel -->
+            <div class="popit-stats-overview">
+                <div class="popit-stat-card">
+                    <h3>Mode</h3>
+                    <p id="popitModeLabel">Player vs AI</p>
+                </div>
+                <div class="popit-stat-card">
+                    <h3>Board</h3>
+                    <p id="popitBoardLabel">5 Rows</p>
+                </div>
+                <div class="popit-stat-card">
+                    <h3>Turn</h3>
+                    <p id="turnLabel">Player</p>
+                </div>
+                <div class="popit-stat-card">
+                    <h3>Status</h3>
+                    <p id="popitStatusLabel">Ready</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             MAIN LAYOUT
+             ========================= -->
+        <section class="popit-layout">
+
+            <!-- LEFT SIDEBAR: settings + rules -->
+            <aside class="popit-sidebar">
+                <div class="panel-box">
+                    <h2>Game Settings</h2>
+
+                    <!-- Mode selection -->
+                    <div class="control-group">
+                        <label for="popitModeSelect">Game Mode</label>
+                        <select id="popitModeSelect">
+                            <option value="ai" selected>Player vs AI</option>
+                            <option value="pvp">Player vs Player</option>
+                        </select>
+                    </div>
+
+                    <!-- Row count configuration -->
+                    <div class="control-group">
+                        <label for="rowCountSelect">Rows</label>
+                        <select id="rowCountSelect">
+                            <option value="4">4 Rows</option>
+                            <option value="5" selected>5 Rows</option>
+                            <option value="6">6 Rows</option>
+                        </select>
+                    </div>
+
+                    <!-- AI difficulty selection -->
+                    <div class="control-group">
+                        <label for="aiLevelSelect">AI Difficulty</label>
+                        <select id="aiLevelSelect">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <!-- Control buttons -->
+                    <div class="control-buttons">
+                        <button id="startPopitBtn" class="control-btn primary-btn">Start Game</button>
+                        <button id="resetPopitBtn" class="control-btn secondary-btn">Reset Board</button>
+                        <button id="endTurnBtn" class="control-btn ghost-btn">End Turn</button>
+                    </div>
+                </div>
+
+                <!-- Rules panel -->
+                <div class="panel-box">
+                    <h2>Rules</h2>
+                    <ul class="info-list">
+                        <li>Choose only one row per turn.</li>
+                        <li>Pop one or more bubbles in that row.</li>
+                        <li>You cannot jump over a popped gap in the same turn.</li>
+                        <li>The player who pops the last bubble loses.</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- CENTER: game board + live info -->
+            <section class="popit-center">
+
+                <!-- Live turn stats -->
+                <div class="popit-topbar">
+                    <div class="live-stat">
+                        <span>Selected Row</span>
+                        <strong id="selectedRowLabel">None</strong>
+                    </div>
+                    <div class="live-stat">
+                        <span>Popped This Turn</span>
+                        <strong id="turnPopCount">0</strong>
+                    </div>
+                    <div class="live-stat">
+                        <span>Remaining</span>
+                        <strong id="remainingBubbleCount">0</strong>
+                    </div>
+                    <div class="live-stat">
+                        <span>AI Thinking</span>
+                        <strong id="aiThinkingLabel">No</strong>
+                    </div>
+                </div>
+
+                <!-- Game board container -->
+                <div class="popit-board-shell">
+                    <div class="popit-board" id="popitBoard"></div>
+                </div>
+
+                <!-- Status message -->
+                <div class="board-message" id="popitMessage">
+                    Press Start to begin. Choose one row and pop bubbles from that row only.
+                </div>
+            </section>
+
+            <!-- RIGHT SIDEBAR: score + AI + history -->
+            <aside class="popit-sidebar">
+
+                <!-- Scoreboard -->
+                <div class="panel-box">
+                    <h2>Scoreboard</h2>
+                    <div class="score-grid">
+                        <div class="score-item">
+                            <span class="score-title">Player</span>
+                            <strong id="playerScore">0</strong>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-title" id="playerTwoName">AI</span>
+                            <strong id="opponentScore">0</strong>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-title">Rounds</span>
+                            <strong id="roundCount">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI analysis panel -->
+                <div class="panel-box">
+                    <h2>AI Analysis</h2>
+                    <div class="analysis-card">
+                        <p class="analysis-label">Recommended Type</p>
+                        <strong id="recommendedMove">Waiting...</strong>
+                    </div>
+                    <div class="analysis-card">
+                        <p class="analysis-label">Position State</p>
+                        <strong id="positionState">Unknown</strong>
+                    </div>
+                    <div class="analysis-card">
+                        <p class="analysis-label">Turn Rule</p>
+                        <strong>One row only</strong>
+                    </div>
+                </div>
+
+                <!-- Move history -->
+                <div class="panel-box">
+                    <h2>Move History</h2>
+                    <div class="history-list" id="popitHistory">
+                        <div class="history-empty">No moves yet.</div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <!-- =========================
+         WINNER MODAL
+         ========================= -->
+    <div class="winner-modal hidden" id="popitModal">
+        <div class="winner-modal-content">
+            <h2 id="popitModalTitle">Round Over</h2>
+            <p id="popitModalText">Someone lost the round.</p>
+            <div class="winner-actions">
+                <button id="playPopitAgainBtn" class="control-btn primary-btn">Play Again</button>
+                <button id="closePopitModalBtn" class="control-btn ghost-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+    <footer class="footer">
+        <p>© 2026 NeuroPlay Arcade | Pop It Strategy Experience</p>
+    </footer>
+
+    <!-- Shared logic -->
+    <script src="js/main.js"></script>
+
+    <!-- Pop It game logic -->
+    <script src="js/popit.js"></script>
+
+</body>
+</html>
