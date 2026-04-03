@@ -6,6 +6,12 @@ Built fully from scratch using **HTML, CSS, JavaScript, and Python (for sound ge
 
 ---
 
+##  Live Demo
+
+👉 https://bofo-6192.github.io/ai-arcade-pro/
+
+---
+
 ##  Games Included
 
 ###  4 in a Row (Connect 4)
